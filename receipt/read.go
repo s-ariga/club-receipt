@@ -16,6 +16,10 @@ type Receipt struct {
 	Summary string
 }
 
+const (
+	SHEET = "フォームの回答 1"
+)
+
 func ReadReceipts(fileName string) ([]Receipt, error) {
 
 	f, err := excelize.OpenFile(fileName)
@@ -24,7 +28,7 @@ func ReadReceipts(fileName string) ([]Receipt, error) {
 	}
 	defer f.Close()
 
-	rows, err := f.GetRows("Sheet1")
+	rows, err := f.GetRows(SHEET)
 	if err != nil {
 		return nil, err
 	}

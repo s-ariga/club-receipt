@@ -5,6 +5,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/s-ariga/club-receipt/receipt"
@@ -20,6 +21,10 @@ func main() {
 	receipts, err := receipt.ReadReceipts(INPUT)
 	if err != nil {
 		log.Panic(err)
+	}
+
+	for _, receipt := range receipts {
+		fmt.Println(receipt)
 	}
 
 	// 出力ファイルを書き込む
