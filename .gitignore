@@ -22,3 +22,4 @@ go.work
 # 個人情報が入るディレクトリ
 input/
 output/
+receipt*/

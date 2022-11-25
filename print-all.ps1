@@ -1,0 +1,1 @@
+Start-Process -filepath output\*.xlsx -Verb print
