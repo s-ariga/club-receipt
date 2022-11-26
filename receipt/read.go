@@ -39,6 +39,7 @@ func ReadReceipts(fileName string) ([]Receipt, error) {
 		if i == 0 {
 			continue
 		}
+		// 金額欄が整数値でない場合はここで止める
 		price, err := strconv.Atoi(row[3])
 		if err != nil {
 			return nil, err
