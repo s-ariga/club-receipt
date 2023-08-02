@@ -7,8 +7,8 @@ package receipt
 import (
 	"errors"
 	"fmt"
-	"os"
 	"log"
+	"os"
 
 	"github.com/xuri/excelize/v2"
 )
@@ -28,14 +28,15 @@ func checkFileExists(filePath string) bool {
 
 // OUTPUT_DIR内のファイルを「全部」消す
 func cleanOutputDir() error {
-	err := os.RemoveAll(OUTPUT_DIR)
-	if err != nil {
-		return err
-	}
+	// TODO: たぶん、下の行が問題
+	//err := os.RemoveAll(OUTPUT_DIR)
+	//if err != nil {
+	//	return err
+	//}
 
 	_, err = os.Stat(OUTPUT_DIR)
 	// 出力ディレクトリが無かったら、作る
-	if os.IsNotExist(err){
+	if os.IsNotExist(err) {
 		err = os.Mkdir(OUTPUT_DIR, 0755)
 		if err != nil {
 			log.Fatal(err)
@@ -48,16 +49,19 @@ func cleanOutputDir() error {
 // 同じファイル名をつけないので、実行前にファイル全部消して作り直す
 func WriteReceipts(receipts []Receipt) error {
 
+	// TODO: ディレクトリが見つからずエラーになるときがある。
+	// Google Driveがネットワークアクセスできない場合？
+
 	err := cleanOutputDir()
 	if err != nil {
-		return err
+		log.Panic(err)
 	}
 	// receiptsはレシートのリストなので、1つずつファイルに書き込んでいく
 	for _, receipt := range receipts {
 		fileName := OUTPUT_DIR + receipt.Name + FILE_EXT
 		f, err := excelize.OpenFile(TEMPLATE)
 		if err != nil {
-			return err
+			log.Panic(err)
 		}
 		defer f.Close()
 
@@ -76,7 +80,7 @@ func WriteReceipts(receipts []Receipt) error {
 		}
 		err = f.SaveAs(fileName)
 		if err != nil {
-			return err
+			log.Panic(err)
 		}
 		f.Close()
 	}

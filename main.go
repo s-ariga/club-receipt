@@ -1,5 +1,7 @@
 /**
  * Seiichi Ariga <seiichi.ariga@gmail.com> (c) 2022
+ * クラブ対抗戦の領収書を作成する
+ * Excelテンプレートに宛先、金額、適用を流し込みます
  */
 
 package main
